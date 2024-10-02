@@ -31,7 +31,9 @@ window.addEventListener('load', function() {
     let lastOperator = null;
     let isNumberClickedLast = false;
     let numOfRulerClicked = 0;
+    let numOfPlusMinusClicked = 0;
     let numOfAdvancedClicked = 0;
+    let numOfPercentClicked = 0;
     const calcBodyAndroid = document.getElementById('calc-body-android');
     const calcBodyIos = document.getElementById('calc-body-ios');
     const numberButtons = document.querySelectorAll('.number-button');
@@ -78,22 +80,35 @@ window.addEventListener('load', function() {
         clearActiveOperator();
         numOfAdvancedClicked++;
         if (numOfAdvancedClicked > 3) {
-            advancedSettingsWindow.classList.toggle('hidden');
+            handleAdvancedClicked();
         }
     });
+
+    
+    const handleAdvancedClicked = () => {
+        advancedSettingsWindow.classList.toggle('hidden');
+        numOfAdvancedClicked = 0;
+        numOfPercentClicked = 0;
+    }
 
     iconRuler.addEventListener('click', () => {
         clearActiveOperator();
         numOfRulerClicked++;
         if (numOfRulerClicked === 3) {
+            handleRulerClick();
+        }
+    });
+
+    const onRulerClick = () => {
             const curreText = [getResult()];
             localStorage.setItem("nextResults", JSON.stringify(curreText));
             setForceInterval(1);
             setResult('');
             numOfRulerClicked = 0;
+            numOfPlusMinusClicked = 0;
         }
-    });
-
+    }
+    
     deleteButtons.forEach(deleteButton => {
         deleteButton.addEventListener('click', () => {
             clearActiveOperator();
@@ -122,6 +137,11 @@ window.addEventListener('load', function() {
             setResult(oldResult * -1);
             isNumberClickedLast = false;
             setIsFinalResult(false);
+
+            numOfPlusMinusClicked++;
+            if (numOfPlusMinusClicked === 5) {
+                handleRulerClick();
+            }
         });
     });
 
@@ -153,6 +173,11 @@ window.addEventListener('load', function() {
             const oldResult = getResult();
             if (!!oldResult) {
                 setResult(oldResult / 100);
+            } else {
+                numOfPercentClicked++;
+                if (numOfPercentClicked > 5) {
+                    handleAdvancedClicked();
+                }
             }
         });
     });
