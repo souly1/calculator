@@ -29,10 +29,10 @@
                 <div class="function-icon icon-history"></div>
             </div>
             <div class="function-icon-container">
-                <div class="function-icon icon-ruler"></div>                
+                <div class="function-icon icon-ruler" id="icon-ruler"></div>                
             </div>
             <div class="function-icon-container">
-                <div class="function-icon icon-advanced"></div>
+                <div class="function-icon icon-advanced" id="icon-advanced"></div>
             </div>
             <div class="function-icon placeholder"></div>
             <div class="function-icon placeholder"></div>
@@ -130,6 +130,32 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="advanced-settings hidden" id="advanced-settings">
+        <h1>Advanced Settings</h1>
+        <div class="advanced-input-container">
+            <label for="iteration">Iterations:</label>
+            <input type="number" id="iteration" name="iteration" value="2"><br><br>
+        </div>
+        <div class="advanced-input-container">
+            <label for="value-1">Value 1:</label>
+            <input type="number" id="value-1" name="value-1"><br><br>
+        </div>
+        <div class="advanced-input-container">
+            <label for="value-2">Value 2:</label>
+            <input type="number" id="value-2" name="value-2"><br><br>
+        </div>
+        <div class="advanced-input-container">
+            <label for="value-3">Value 3:</label>
+            <input type="number" id="value-3" name="value-3"><br><br>
+        </div>
+
+        <div class="button-bar">
+            <button id="advanced-clear-button">clear</button>
+            <button id="advanced-save-button">save</button>
+            <button id="advanced-cancel-button">cancel</button>
+        </div>  
     </div>
 
     <!-- Link to the external JS file -->
