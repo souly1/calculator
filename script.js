@@ -26,9 +26,12 @@ window.addEventListener('load', function() {
         }, 10);
     }, 100);
 
+    let equalsClickCount = 0;
     let lastSum = 0;
     let lastOperator = null;
     let isNumberClickedLast = false;
+    let numOfRulerClicked = 0;
+    let numOfAdvancedClicked = 0;
     const numberButtons = document.querySelectorAll('.number-button');
     const operationButtons = document.querySelectorAll('.operation-button');
     const deleteButton = document.getElementById('icon-delete');
@@ -38,6 +41,16 @@ window.addEventListener('load', function() {
     const clearButton = document.getElementById('button-clear');
     const percentButton = document.getElementById('button-percent');
     const fullscreenButton = document.getElementById('fullscreen-button');
+    const iconAdvanced = document.getElementById('icon-advanced');
+    const iconRuler = document.getElementById('icon-ruler');
+    const advancedSettingsWindow = this.document.getElementById('advanced-settings');
+    const advancedClearButton = document.getElementById('advanced-clear-button');
+    const advancedCancelButton = document.getElementById('advanced-cancel-button');
+    const advancedSaveButton = document.getElementById('advanced-save-button');
+    const iterationInput = document.getElementById('iteration');
+    const value1Input = document.getElementById('value-1');
+    const value2Input = document.getElementById('value-2');
+    const value3Input = document.getElementById('value-3');
 
     function enterFullscreen() {
         if (document.documentElement.requestFullscreen) {
@@ -49,12 +62,32 @@ window.addEventListener('load', function() {
         } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
             document.documentElement.msRequestFullscreen();
         }
+
+        fullscreenButton.classList.toggle('hidden');
     }
     
     fullscreenButton.addEventListener('click', enterFullscreen);
 
     // Select the output div where you want to display the clicked button value
     const result = document.getElementById('result');
+
+    iconAdvanced.addEventListener('click', () => {
+        numOfAdvancedClicked++;
+        if (numOfAdvancedClicked > 3) {
+            advancedSettingsWindow.classList.toggle('hidden');
+        }
+    });
+
+    iconRuler.addEventListener('click', () => {
+        numOfRulerClicked++;
+        if (numOfRulerClicked === 3) {
+            const curreText = [result.innerText];
+            localStorage.setItem("nextResults", JSON.stringify(curreText));
+            setForceInterval(1);
+            result.innerText = '';
+            numOfRulerClicked = 0;
+        }
+    });
 
     deleteButton.addEventListener('click', () => {
         result.innerText = result.innerText.slice(0, result.innerText.length-1);
@@ -63,8 +96,10 @@ window.addEventListener('load', function() {
     });
 
     equalsButton.addEventListener('click', () => {
+        equalsClickCount++;
         calculateLastOperation();
         isNumberClickedLast = false;
+        checkForce();
         setIsFinalResult(true);
     });
 
@@ -81,6 +116,7 @@ window.addEventListener('load', function() {
     });
 
     clearButton.addEventListener('click', () => {
+        numOfAdvancedClicked = 0;
         lastSum = 0;
         lastOperator = null;
         result.innerText = '';
@@ -156,4 +192,53 @@ window.addEventListener('load', function() {
             result.classList.remove('final');
         }
     };
+
+    const setForceInterval = (inter) => {
+        this.localStorage.setItem("nextInterval", inter);
+    }
+
+    const checkForce = () => {
+        const currInterval = +this.localStorage.getItem("nextInterval") ?? 1;
+        if (equalsClickCount % currInterval === 0) {
+            tryGetForceNumber();
+        }
+    }
+
+    const tryGetForceNumber = () => {
+        const nextResults = JSON.parse(localStorage.getItem("nextResults"));
+        const valToSet = nextResults.pop();
+        if (valToSet !== null && valToSet !== undefined) {
+            result.innerText = valToSet;
+            this.localStorage.setItem("nextResults", JSON.stringify(nextResults));
+        }
+    }
+
+
+    advancedClearButton.addEventListener('click', () => {
+        iterationInput.value = 2;
+        value3Input.value = '';
+        value2Input.value = '';
+        value1Input.value = '';
+    });
+
+    advancedCancelButton.addEventListener('click', () => {
+        advancedSettingsWindow.classList.toggle('hidden');
+    });
+
+    advancedSaveButton.addEventListener('click', () => {
+        this.localStorage.setItem("nextInterval", iterationInput.value);
+        const nextResults = [];
+        if (value3Input.value !== undefined && value3Input.value !== null) {
+            nextResults.push(+value3Input.value);
+        }
+        if (value2Input.value !== undefined && value2Input.value !== null) {
+            nextResults.push(+value2Input.value);
+        }
+        if (value1Input.value !== undefined && value1Input.value !== null) {
+            nextResults.push(+value1Input.value);
+        }
+        this.localStorage.setItem("nextResults", JSON.stringify(nextResults));
+
+        advancedSettingsWindow.classList.toggle('hidden');
+    });
 });
