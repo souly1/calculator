@@ -17,6 +17,7 @@ window.addEventListener('load', function() {
                 this.setTimeout(() => {
                     document.body.classList.add('no-scroll');
                     document.documentElement.classList.add('no-scroll');
+                    setInterval(scrollToButton, 10);
                 }, 1000);
             }
         });
@@ -38,7 +39,6 @@ window.addEventListener('load', function() {
         equalsButton.scrollIntoView({ behavior: 'auto', block: 'center' });
     }
     
-    setInterval(scrollToButton, 10);
 
     // Select the output div where you want to display the clicked button value
     const result = document.getElementById('result');
