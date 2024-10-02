@@ -4,14 +4,11 @@ window.addEventListener('load', function() {
         window.scrollTo(0, 0); // Scroll to the top of the page
         this.setTimeout(() => {
             window.addEventListener('scroll', function() {
-                const scrollTop = window.scrollY || document.documentElement.scrollTop;
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight;
-
-                // Check if the user has scrolled to the bottom of the page
-                if (scrollTop + windowHeight >= documentHeight) {
-                    // Add a class to the body when the user reaches the bottom
-                    document.body.classList.add('no-scroll');
+                if (window.scrollY > window.innerHeight / 2) {
+                    window.removeEventListener('scroll', arguments.callee);
+                    this.setTimeout(() => {
+                        document.body.classList.add('no-scroll');
+                    }, 1000);
                 }
             });
         }, 10);
