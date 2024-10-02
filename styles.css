@@ -22,11 +22,26 @@ body {
     color: white;
 }
 
-.calc-body {
+.calc-body-android {
     display: flex;
     flex-direction: column;
     padding: 7vw;
     height: 94vh;
+}
+
+.calc-body-android.hidden {
+    display: none;
+}
+
+
+.calc-body-ios {
+    display: flex;
+    flex-direction: column;
+    height: 94vh;
+}
+
+.calc-body-ios.hidden {
+    display: none;
 }
 
 /* For hiding scrollbars on all browsers */
@@ -221,6 +236,14 @@ html::-webkit-scrollbar {
     display: flex;
     justify-content: end;
 }
+.calc-body-ios .calculation-area {
+    align-items: end;
+    font-size: 15vw;
+}
+
+.calc-body-ios .calculation-area .calculation-row {
+    padding-right: 10vw;
+}
 
 .calculation-row {
     display: flex;
@@ -306,4 +329,78 @@ html::-webkit-scrollbar {
     width: 100%;
     justify-content: space-evenly;
     align-items: center;
+}
+
+/* ios */
+
+.button-row-ios {
+    justify-content: space-evenly;
+}
+
+.button-row-ios .button-container{
+    width: auto;
+}
+
+.operation-button.operation-button-ios {
+    filter: invert(100%) sepia(6%) saturate(147%) hue-rotate(228deg) brightness(115%) contrast(84%) !important;
+    color: #000000;
+    font-size: 10vw;
+    background-size: 5vw;
+}
+
+.button-equals.operation-button-ios {
+    filter: invert(100%) sepia(6%) saturate(147%) hue-rotate(228deg) brightness(115%) contrast(84%) !important;
+    color: #000000;
+    font-size: 10vw;
+    background-size: 5vw;
+}
+
+.math-button-container-ios {
+    background-color: #a4b2bf;
+    transition: background-color 1s ease;
+}
+
+.math-button-container-ios:active {
+    background-color: #bfd1e1;
+    transition: background-color 0s;
+}
+
+.button-row-ios .operation-button-container-ios {
+    background-color: #d38f2f;
+}
+
+.button-row-ios .operation-button-container-ios.active {
+    background-color: #e7e7e7;
+}
+
+.button-row-ios .operation-button-container-ios.active .operation-button.operation-button-ios {
+    filter: invert(59%) sepia(90%) saturate(373%) hue-rotate(354deg) brightness(86%) contrast(91%) !important;
+}
+
+.number-button.number-button-ios {
+    background-color: #25282d;
+    font-size: 7vw;
+    transition: background-color 1s ease;
+}
+
+.number-button.number-button-ios:active {
+    background-color: #575c65;
+    transition: background-color 0s;
+}
+
+.math-button-ios {
+    color: #000000 !important;
+    font-weight: normal !important;
+    line-height: 19vw;
+    filter: none !important;
+    font-size: 6vw;
+}
+
+.number-button-ios-zero {
+    width: 41vw;
+    border-radius: 64px;
+}
+
+.operation-button-ios.button-divide {
+    background-size: 9vw;
 }
