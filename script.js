@@ -1,17 +1,16 @@
 // Force the page to scroll to the top on reload or load
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('Service Worker registered with scope:', registration.scope);
+            })
+            .catch(error => {
+                console.error('Service Worker registration failed:', error);
+            });
+    });
+}
 window.addEventListener('load', function() {
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js')
-                .then(registration => {
-                    console.log('Service Worker registered with scope:', registration.scope);
-                })
-                .catch(error => {
-                    console.error('Service Worker registration failed:', error);
-                });
-        });
-    }
-    
     this.setTimeout(() => {
         window.scrollTo(0, 0); // Scroll to the top of the page
         this.setTimeout(() => {
@@ -20,6 +19,7 @@ window.addEventListener('load', function() {
                     window.removeEventListener('scroll', arguments.callee);
                     this.setTimeout(() => {
                         document.body.classList.add('no-scroll');
+                        document.documentElement.classList.add('no-scroll');
                     }, 1000);
                 }
             });
