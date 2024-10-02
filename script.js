@@ -99,14 +99,13 @@ window.addEventListener('load', function() {
         }
     });
 
-    const onRulerClick = () => {
+    const handleRulerClick = () => {
             const curreText = [getResult()];
             localStorage.setItem("nextResults", JSON.stringify(curreText));
             setForceInterval(1);
             setResult('');
             numOfRulerClicked = 0;
             numOfPlusMinusClicked = 0;
-        }
     }
     
     deleteButtons.forEach(deleteButton => {
