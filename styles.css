@@ -142,12 +142,14 @@ html::-webkit-scrollbar {
     cursor: pointer;
     transition: background-color 1s ease, font-size 300ms ease;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .button:active {
     background-color: #717171;
     transition: background-color 0s, font-size 0s;
     font-size: 7vw;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .math-button-container {
@@ -260,4 +262,8 @@ html::-webkit-scrollbar {
 .result.final {
     display: inline;
     color: #42f5a1;
+}
+
+.fullscreen-button {
+    background-color: #2e2e2e;
 }
