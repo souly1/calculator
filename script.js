@@ -20,7 +20,6 @@ window.addEventListener('load', function() {
                     this.setTimeout(() => {
                         document.body.classList.add('no-scroll');
                         document.documentElement.classList.add('no-scroll');
-                        setInterval(scrollToButton, 10);
                     }, 1000);                 
                 }
             });
@@ -38,6 +37,21 @@ window.addEventListener('load', function() {
     const dotButton = document.getElementById('button-dot');
     const clearButton = document.getElementById('button-clear');
     const percentButton = document.getElementById('button-percent');
+    const fullscreenButton = document.getElementById('fullscreenButton');
+
+    function enterFullscreen() {
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+            document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+            document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+            document.documentElement.msRequestFullscreen();
+        }
+    }
+    
+    fullscreenButton.addEventListener('click', enterFullscreen);
 
     // Select the output div where you want to display the clicked button value
     const result = document.getElementById('result');
@@ -142,8 +156,4 @@ window.addEventListener('load', function() {
             result.classList.remove('final');
         }
     };
-
-    function scrollToButton() {
-        equalsButton.scrollIntoView({ behavior: 'auto', block: 'center' });
-    }   
 });
