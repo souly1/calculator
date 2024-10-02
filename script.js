@@ -10,9 +10,11 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+
+window.addEventListener("load", function() { window.scrollTo(0, 1); });
+window.addEventListener("unload", function() { window.scrollTo(0, 1); });
+    
 window.addEventListener('load', function() {
-    window.addEventListener("load", function() { window.scrollTo(0, 1); });
-    window.addEventListener("unload", function() { window.scrollTo(0, 1); });
     // this.setTimeout(() => {
     //     window.scrollTo(0, 0); // Scroll to the top of the page
     //     this.setTimeout(() => {
