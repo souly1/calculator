@@ -10,25 +10,21 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
-
-window.addEventListener("load", function() { window.scrollTo(0, 1); });
-window.addEventListener("unload", function() { window.scrollTo(0, 1); });
-    
 window.addEventListener('load', function() {
-    // this.setTimeout(() => {
-    //     window.scrollTo(0, 0); // Scroll to the top of the page
-    //     this.setTimeout(() => {
-    //         window.addEventListener('scroll', function() {
-    //             if (window.scrollY > window.innerHeight / 2) {
-    //                 window.removeEventListener('scroll', arguments.callee);
-    //                 this.setTimeout(() => {
-    //                     document.body.classList.add('no-scroll');
-    //                     document.documentElement.classList.add('no-scroll');
-    //                 }, 1000);
-    //             }
-    //         });
-    //     }, 10);
-    // }, 100);
+    this.setTimeout(() => {
+        window.scrollTo(0, 0); // Scroll to the top of the page
+        this.setTimeout(() => {
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > window.innerHeight / 2) {
+                    window.removeEventListener('scroll', arguments.callee);
+                    this.setTimeout(() => {
+                        document.body.classList.add('no-scroll');
+                        document.documentElement.classList.add('no-scroll');
+                    }, 1000);
+                }
+            });
+        }, 10);
+    }, 100);
 
     let lastSum = 0;
     let lastOperator = null;
@@ -41,6 +37,12 @@ window.addEventListener('load', function() {
     const dotButton = document.getElementById('button-dot');
     const clearButton = document.getElementById('button-clear');
     const percentButton = document.getElementById('button-percent');
+
+    function scrollToButton() {
+        equalsButton.scrollIntoView({ behavior: 'auto', block: 'center' });
+    }
+    
+    setInterval(scrollToButton, 10);
 
     // Select the output div where you want to display the clicked button value
     const result = document.getElementById('result');
