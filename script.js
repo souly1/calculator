@@ -1,4 +1,13 @@
 // Force the page to scroll to the top on reload or load
+ setTimeout(() => {
+            if (isPWAorFullscreen()) {
+                window.scrollTo(0, document.body.scrollHeight);
+                setTimeout(() => {
+                    document.body.classList.add('no-scroll');
+                    document.documentElement.classList.add('no-scroll');
+                }, 300);
+              }
+        }, 300);
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/calculator/sw.js')
@@ -8,18 +17,6 @@ if ('serviceWorker' in navigator) {
             .catch(error => {
                 console.error('Service Worker registration failed:', error);
             });
-
-        setTimeout(() => {
-            navigator.serviceWorker.getRegistrations().then((registrations) => {
-                setTimeout(() => {
-                    if (registrations.length > 0) {
-                        window.scrollTo(0, document.body.scrollHeight);
-                        document.body.classList.add('no-scroll');
-                        document.documentElement.classList.add('no-scroll');
-                    }
-                }, 300);
-            });
-        }, 300);
     });
 }
 window.addEventListener('load', function() {
@@ -323,5 +320,12 @@ window.addEventListener('load', function() {
             operationButton.parentElement.classList.remove('active');
         });
     };
+
+    function isPWAorFullscreen() {
+      return (window.matchMedia && (
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.matchMedia('(display-mode: fullscreen)').matches
+      )) || window.navigator.standalone;
+    }
     detectAndSetUiDevice();
 });
