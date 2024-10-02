@@ -37,7 +37,7 @@ window.addEventListener('load', function() {
     const dotButton = document.getElementById('button-dot');
     const clearButton = document.getElementById('button-clear');
     const percentButton = document.getElementById('button-percent');
-    const fullscreenButton = document.getElementById('fullscreenButton');
+    const fullscreenButton = document.getElementById('fullscreen-button');
 
     function enterFullscreen() {
         if (document.documentElement.requestFullscreen) {
