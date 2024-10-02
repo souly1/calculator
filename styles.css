@@ -1,0 +1,259 @@
+/* Basic styles for the HTML page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000000;
+    margin: 0;
+    color: white;
+    height: 200vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+.head {
+    color: white;
+}
+
+.calc-body {
+    display: flex;
+    flex-direction: column;
+    padding: 7vw;
+    height: 94vh;
+}
+
+/* For hiding scrollbars on all browsers */
+html {
+    scrollbar-width:none; /* For Firefox */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.function-bar {
+    display: flex;
+    flex-direction: row;
+    border-bottom-color: #4a4a4a;
+    border-bottom-width: 0.06em;
+    border-bottom-style: solid;
+    justify-content: space-evenly;
+    align-items: center;
+    align-items: center;
+    padding: 2em 0;
+    padding-left: 1.2em;
+}
+
+.function-icon-container {
+    width: 12vw;
+    height: 12vw;
+    border-radius: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    user-select: none;
+    transition: background-color 1s ease;
+}
+
+.function-icon-container:active {
+    transition: background-color 0s;
+    user-select: none;
+    background-color: #2a2a2a;
+}
+
+.function-icon {
+    width: 6vw;
+    height: 6vw;
+    background-size: contain;            /* Resize the background to fit the div */
+    background-repeat: no-repeat;        /* Prevent the background from repeating */
+    background-position: center center;  /* Center the icon in the div */
+}
+
+.icon-history {
+    background-image: url('assets/icons/three-o-clock-clock.svg'); /* Path to your SVG file */
+    filter: invert(80%);
+}
+
+.icon-ruler {
+    background-image: url('assets/icons/ruler.svg'); /* Path to your SVG file */
+    filter: invert(80%);
+    transform: rotate(45deg); /* Rotates the element by 45 degrees */
+}
+
+.icon-advanced {
+    background-image: url('assets/icons/advanced.svg'); /* Path to your SVG file */
+    filter: invert(80%);
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+.icon-delete {
+    background-image: url('assets/icons/delete.svg'); /* Path to your SVG file */
+    filter: invert(100%) sepia(27%) saturate(5765%) hue-rotate(65deg) brightness(123%) contrast(92%); /* from hex #42f5a1 to css filter */
+}
+
+.icon-delete.empty {
+    background-image: url('assets/icons/delete.svg'); /* Path to your SVG file */
+    filter: invert(10%) sepia(94%) saturate(5587%) hue-rotate(151deg) brightness(104%) contrast(82%);
+}
+
+.main-buttons {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.button-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 25vw;
+    height: 25vw;
+    user-select: none;
+}
+
+.button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 18vw;
+    height: 18vw;
+    background-color: #1e1e1e; 
+    color: #fbfbfb;
+    border-radius: 100%;
+    font-size: 8vw;
+    line-height: 17vw;
+    cursor: pointer;
+    transition: background-color 1s ease, font-size 300ms ease;
+    user-select: none;
+}
+
+.button:active {
+    background-color: #717171;
+    transition: background-color 0s, font-size 0s;
+    font-size: 7vw;
+}
+
+.math-button-container {
+    background-color: #2a2a2a;
+}
+
+.math-button {
+    filter: invert(100%) sepia(27%) saturate(5765%) hue-rotate(65deg) brightness(123%) contrast(92%) !important; /* from hex #42f5a1 to css filter */
+    background-size: contain;            /* Resize the background to fit the div */
+    background-repeat: no-repeat;        /* Prevent the background from repeating */
+    background-position: center center;  /* Center the icon in the div */
+    background-size: 6vw;
+    width: 100%;
+    height: 100%;
+    color: #42f5a1;
+    filter: none;
+    text-align: center;
+}
+
+.button-plus-minus {
+    background-image: url('assets/icons/plus-minus-bold.svg'); /* Path to your SVG file */
+    background-size: contain;            /* Resize the background to fit the div */
+    background-repeat: no-repeat;        /* Prevent the background from repeating */
+    background-position: center center;  /* Center the icon in the div */
+    background-size: 8vw;
+    filter: invert(100%) sepia(6%) saturate(26%) hue-rotate(174deg) brightness(115%) contrast(97%);
+    width: 100%;
+    height: 100%;
+}
+
+.button-plus {
+    background-image: url('assets/icons/add.svg'); /* Path to your SVG file */
+}
+
+.button-subtract {
+    background-image: url('assets/icons/subtract.svg'); /* Path to your SVG file */
+}
+
+.math-button.button-multiply {
+    background-image: url('assets/icons/multiply.svg'); /* Path to your SVG file */
+    background-size: 8.5vw;
+}
+
+.math-button.button-divide {
+    background-image: url('assets/icons/divide.svg'); /* Path to your SVG file */
+    background-size: 13vw;
+}
+
+.math-button.button-brackets {
+    color: #42f5a1;
+    filter: none !important;
+}
+
+.math-button.button-percent {
+    color: #42f5a1;
+    filter: none !important;
+}
+
+.math-button.button-clear {
+    color: #fb7b60;
+    font-weight: bold;
+    line-height: 19vw;
+    filter: none !important;
+}
+
+.calculation-area {
+    flex: auto;
+    font-size: 10vw;
+    display: flex;
+    justify-content: end;
+}
+
+.calculation-row {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    height: max-content;
+}
+
+.button-equals {
+    color: #42f5a1;
+    font-size: 12vw;
+    line-height: 19vw;
+}
+
+
+.cursor {
+    width: 4px;
+    height: 12vw;
+    background-color: #42f5a1;  /* Cursor color */
+    display: inline-block;
+    margin-left: 5px;         /* Space from other content */
+    animation: blink 1s step-end infinite; /* Blink effect */
+}
+
+/* Define the blinking animation */
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;           /* Cursor visible at the start and end of the animation */
+    }
+    50% {
+        opacity: 0;           /* Cursor invisible halfway through */
+    }
+}
+
+.result {
+    display: inline;
+}
+
+.result.final {
+    display: inline;
+    color: #42f5a1;
+}

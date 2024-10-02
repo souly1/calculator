@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#000000">
+    <title>Calculator</title>
+    <!-- Link for PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="head"></div>
+    <div class="calc-body">
+        <div class="calculation-area">
+            <div class="calculation-row">
+                <div class="result" id="result"></div>
+                <span class="cursor"></span>
+            </div>
+        </div>
+        <div class="function-bar">
+            <div class="function-icon-container">
+                <div class="function-icon icon-history"></div>
+            </div>
+            <div class="function-icon-container">
+                <div class="function-icon icon-ruler"></div>                
+            </div>
+            <div class="function-icon-container">
+                <div class="function-icon icon-advanced"></div>
+            </div>
+            <div class="function-icon placeholder"></div>
+            <div class="function-icon placeholder"></div>
+            <div class="function-icon-container">
+                <div class="function-icon icon-delete" id="icon-delete"></div>
+            </div>
+        </div>
+        <div class="main-buttons">
+            <div class="button-row">
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="math-button button-clear" id="button-clear">C</div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="math-button button-brackets" id="button-brackets">( )</div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="math-button button-percent" id="button-percent">%</div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="math-button button-divide" value="/"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-container">
+                    <div class="button number-button" value="7">7</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button" value="8">8</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button" value="9">9</div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="math-button operation-button button-multiply" value="*"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-container">
+                    <div class="button number-button" value="4">4</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button" value="5">5</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button" value="6">6</div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="math-button operation-button button-subtract" value="-"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-container">
+                    <div class="button number-button" value="1">1</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button" value="2">2</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button" value="3">3</div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="math-button operation-button button-plus"  value="+"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-container">
+                    <div class="button">
+                        <div class="button-plus-minus operation-button" id="button-plus-minus"></div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button" value="0">0</div>
+                </div>
+                <div class="button-container">
+                    <div class="button button-dot" id="button-dot">.</div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="button-equals" id="button-equals">=</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to the external JS file -->
+    <script src="script.js"></script>
+</body>
+</html>
