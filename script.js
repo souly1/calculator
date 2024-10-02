@@ -8,6 +8,16 @@ if ('serviceWorker' in navigator) {
             .catch(error => {
                 console.error('Service Worker registration failed:', error);
             });
+        
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+            setTimeout(() => {
+                if (registrations.length > 0) {
+                    window.scrollTo(0, document.body.scrollHeight);
+                    document.body.classList.add('no-scroll');
+                    document.documentElement.classList.add('no-scroll');
+                }
+            }, 300);
+        });
     });
 }
 window.addEventListener('load', function() {
