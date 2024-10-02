@@ -20,12 +20,8 @@ window.addEventListener('load', function() {
                     this.setTimeout(() => {
                         document.body.classList.add('no-scroll');
                         document.documentElement.classList.add('no-scroll');
-                    }, 1000);
-                    function scrollToButton() {
-                        equalsButton.scrollIntoView({ behavior: 'auto', block: 'center' });
-                    }
-                    
-                    setInterval(scrollToButton, 10);
+                        setInterval(scrollToButton, 10);
+                    }, 1000);                 
                 }
             });
         }, 10);
@@ -146,4 +142,8 @@ window.addEventListener('load', function() {
             result.classList.remove('final');
         }
     };
+
+    function scrollToButton() {
+        equalsButton.scrollIntoView({ behavior: 'auto', block: 'center' });
+    }   
 });
