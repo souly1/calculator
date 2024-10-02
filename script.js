@@ -1,7 +1,7 @@
 // Force the page to scroll to the top on reload or load
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('/calculator/sw.js')
             .then(registration => {
                 console.log('Service Worker registered with scope:', registration.scope);
             })
