@@ -42,14 +42,17 @@ window.addEventListener('load', function() {
     let isNumberClickedLast = false;
     let numOfRulerClicked = 0;
     let numOfAdvancedClicked = 0;
+    const calcBodyAndroid = document.getElementById('calc-body-android');
+    const calcBodyIos = document.getElementById('calc-body-ios');
     const numberButtons = document.querySelectorAll('.number-button');
     const operationButtons = document.querySelectorAll('.operation-button');
-    const deleteButton = document.getElementById('icon-delete');
-    const equalsButton = document.getElementById('button-equals');
-    const plusMinusButton = document.getElementById('button-plus-minus');
-    const dotButton = document.getElementById('button-dot');
-    const clearButton = document.getElementById('button-clear');
-    const percentButton = document.getElementById('button-percent');
+    const deleteButtons = document.querySelectorAll('.icon-delete');
+    const equalsButtons = document.querySelectorAll('.button-equals');
+    const plusMinusButtons = document.querySelectorAll('.button-plus-minus');
+    const dotButtons = document.querySelectorAll('.button-dot');
+    const clearButtons = document.querySelectorAll('.button-clear');
+    const clearIosButton = document.getElementById('button-clear-ios');
+    const percentButtons = document.querySelectorAll('.button-percent');
     const fullscreenButton = document.getElementById('fullscreen-button');
     const iconAdvanced = document.getElementById('icon-advanced');
     const iconRuler = document.getElementById('icon-ruler');
@@ -61,6 +64,7 @@ window.addEventListener('load', function() {
     const value1Input = document.getElementById('value-1');
     const value2Input = document.getElementById('value-2');
     const value3Input = document.getElementById('value-3');
+    const results = document.querySelectorAll('.result');
 
     function enterFullscreen() {
         if (document.documentElement.requestFullscreen) {
@@ -79,9 +83,9 @@ window.addEventListener('load', function() {
     fullscreenButton.addEventListener('click', enterFullscreen);
 
     // Select the output div where you want to display the clicked button value
-    const result = document.getElementById('result');
 
     iconAdvanced.addEventListener('click', () => {
+        clearActiveOperator();
         numOfAdvancedClicked++;
         if (numOfAdvancedClicked > 3) {
             advancedSettingsWindow.classList.toggle('hidden');
@@ -89,77 +93,108 @@ window.addEventListener('load', function() {
     });
 
     iconRuler.addEventListener('click', () => {
+        clearActiveOperator();
         numOfRulerClicked++;
         if (numOfRulerClicked === 3) {
-            const curreText = [result.innerText];
+            const curreText = [getResult()];
             localStorage.setItem("nextResults", JSON.stringify(curreText));
             setForceInterval(1);
-            result.innerText = '';
+            setResult('');
             numOfRulerClicked = 0;
         }
     });
 
-    deleteButton.addEventListener('click', () => {
-        result.innerText = result.innerText.slice(0, result.innerText.length-1);
-        isNumberClickedLast = true;
-        setIsFinalResult(false);
+    deleteButtons.forEach(deleteButton => {
+        deleteButton.addEventListener('click', () => {
+            clearActiveOperator();
+            const oldResult = getResult();
+            setResult(oldResult.slice(0, oldResult.length-1));
+            isNumberClickedLast = true;
+            setIsFinalResult(false);
+        });
     });
 
-    equalsButton.addEventListener('click', () => {
-        equalsClickCount++;
-        calculateLastOperation();
-        isNumberClickedLast = false;
-        checkForce();
-        setIsFinalResult(true);
+    equalsButtons.forEach(equalsButton => {
+        equalsButton.addEventListener('click', () => {
+            clearActiveOperator();
+            equalsClickCount++;
+            calculateLastOperation();
+            isNumberClickedLast = false;
+            checkForce();
+            setIsFinalResult(true);
+        });
     });
 
-    plusMinusButton.addEventListener('click', () => {
-        result.innerText = result.innerText * -1;
-        isNumberClickedLast = false;
-        setIsFinalResult(false);
+    plusMinusButtons.forEach(plusMinusButton => {
+        plusMinusButton.addEventListener('click', () => {
+            clearActiveOperator();
+            const oldResult = getResult();
+            setResult(oldResult * -1);
+            isNumberClickedLast = false;
+            setIsFinalResult(false);
+        });
     });
 
-    dotButton.addEventListener('click', () => {
-        result.innerText = (+result.innerText).toString() + '.';
-        isNumberClickedLast = true;
-        setIsFinalResult(false);
+    dotButtons.forEach(dotButton => {
+        dotButton.addEventListener('click', () => {
+            clearActiveOperator();
+            setResult((+result.innerText).toString() + '.');
+            isNumberClickedLast = true;
+            setIsFinalResult(false);
+        });
     });
 
-    clearButton.addEventListener('click', () => {
-        numOfAdvancedClicked = 0;
-        lastSum = 0;
-        lastOperator = null;
-        result.innerText = '';
-        isNumberClickedLast = false;
-        setIsFinalResult(false);
+    clearButtons.forEach(clearButton => {
+        clearButton.addEventListener('click', () => {
+            clearActiveOperator();
+            numOfAdvancedClicked = 0;
+            lastSum = 0;
+            lastOperator = null;
+            setResult('');
+            isNumberClickedLast = false;
+            setIsFinalResult(false);
+            setClearIosButtonText();
+        });
     });
 
-    percentButton.addEventListener('click', () => {
-        if (!!result.innerText) {
-            result.innerText = result.innerText / 100;
-        }
+    percentButtons.forEach(percentButton => {
+        percentButton.addEventListener('click', () => {
+            clearActiveOperator();
+            const oldResult = getResult();
+            if (!!oldResult) {
+                setResult(oldResult / 100);
+            }
+        });
     });
 
     numberButtons.forEach(numberButton => {
         numberButton.addEventListener('click', function(elem) {
+            clearActiveOperator();
             numberClicked(+this.attributes.getNamedItem('value').value);
+            setClearIosButtonText();
         });
     });
 
     operationButtons.forEach(operationButton => {
         operationButton.addEventListener('click', function() {
-            // Get the button's value
+            clearActiveOperator();
+            this.parentElement.classList.add('active');
             const operator = this.attributes.getNamedItem('value').value;
-    
             operatorClicked(operator);
         });
     });
 
+    const setClearIosButtonText = () => {
+        const res = getResult();
+        clearIosButton.innerHTML = (!!res) ? 'C' : 'AC';
+    }
+
     const numberClicked = (clickedValue) => {
         if (isNumberClickedLast) {
-            result.innerText = +(result.innerText.toString() + clickedValue.toString());
+            const oldResult = getResult();
+            setResult(+(oldResult.toString() + clickedValue.toString()));
         } else {
-            result.innerText = clickedValue;
+            setResult(clickedValue);
         }
         isNumberClickedLast = true;
         setIsFinalResult(false);
@@ -173,33 +208,38 @@ window.addEventListener('load', function() {
     }
 
     const calculateLastOperation = () => {
+        const oldResult = getResult();
         if (lastOperator) {
             switch (lastOperator) {
                 case '/':
-                    lastSum = +lastSum / (+result.innerText);
+                    lastSum = +lastSum / (+oldResult);
                     break;
                 case '*':
-                    lastSum = +lastSum * (+result.innerText);
+                    lastSum = +lastSum * (+oldResult);
                     break;
                 case '+':
-                    lastSum = +lastSum + (+result.innerText);
+                    lastSum = +lastSum + (+oldResult);
                     break;
                 case '-':
-                    lastSum = +lastSum - (+result.innerText);
+                    lastSum = +lastSum - (+oldResultt);
                     break;
             }
-            result.innerText = lastSum;
+            setResult(lastSum);
             lastOperator = null;
         } else {
-            lastSum = result.innerText;
+            lastSum = oldResult;
         }
     }
 
     const setIsFinalResult = (isFinal) => {
         if (isFinal) {
-            result.classList.add('final');
+            results.forEach((result) => {
+                result.classList.add('final');
+            })
         } else {
-            result.classList.remove('final');
+            results.forEach((result) => {
+                result.classList.remove('final');
+            }) 
         }
     };
 
@@ -218,7 +258,7 @@ window.addEventListener('load', function() {
         const nextResults = JSON.parse(localStorage.getItem("nextResults"));
         const valToSet = nextResults.pop();
         if (valToSet !== null && valToSet !== undefined) {
-            result.innerText = valToSet;
+            setResult(valToSet);
             this.localStorage.setItem("nextResults", JSON.stringify(nextResults));
         }
     }
@@ -251,4 +291,35 @@ window.addEventListener('load', function() {
 
         advancedSettingsWindow.classList.toggle('hidden');
     });
+
+    const getResult = () => {
+        return results[0].innerText;
+    }
+
+    const setResult = (newVal) => {
+        results.forEach((result) => {
+            result.innerText = newVal;
+        })
+    }
+
+    const detectAndSetUiDevice = () => {
+        const userAgent = navigator.userAgent;
+
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            console.log('Device is iOS');
+            calcBodyAndroid.classList.toggle('hidden');
+            calcBodyIos.classList.toggle('hidden');
+        } else if (/android/i.test(userAgent)) {
+            console.log('Device is Android');
+        } else {
+            console.log('Device is neither iOS nor Android');
+        }
+    }
+
+    const clearActiveOperator = () => {
+        operationButtons.forEach(operationButton => {
+            operationButton.parentElement.classList.remove('active');
+        });
+    };
+    detectAndSetUiDevice();
 });
