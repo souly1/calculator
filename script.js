@@ -10,17 +10,17 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     this.setTimeout(() => {
         window.scrollTo(0, 0); // Scroll to the top of the page
         this.setTimeout(() => {
-            window.addEventListener('scroll', function() {
+            window.addEventListener('scroll', function () {
                 if (window.scrollY > window.innerHeight / 2) {
                     window.removeEventListener('scroll', arguments.callee);
                     this.setTimeout(() => {
                         document.body.classList.add('no-scroll');
                         document.documentElement.classList.add('no-scroll');
-                    }, 1000);                 
+                    }, 1000);
                 }
             });
         }, 10);
@@ -70,8 +70,9 @@ window.addEventListener('load', function() {
         }
 
         fullscreenButton.classList.toggle('hidden');
+        scrollToBottom();
     }
-    
+
     fullscreenButton.addEventListener('click', enterFullscreen);
 
     // Select the output div where you want to display the clicked button value
@@ -84,7 +85,7 @@ window.addEventListener('load', function() {
         }
     });
 
-    
+
     const handleAdvancedClicked = () => {
         advancedSettingsWindow.classList.toggle('hidden');
         numOfAdvancedClicked = 0;
@@ -100,19 +101,19 @@ window.addEventListener('load', function() {
     });
 
     const handleRulerClick = () => {
-            const curreText = [getResult()];
-            localStorage.setItem("nextResults", JSON.stringify(curreText));
-            setForceInterval(1);
-            setResult('');
-            numOfRulerClicked = 0;
-            numOfPlusMinusClicked = 0;
+        const curreText = [getResult()];
+        localStorage.setItem("nextResults", JSON.stringify(curreText));
+        setForceInterval(1);
+        setResult('');
+        numOfRulerClicked = 0;
+        numOfPlusMinusClicked = 0;
     }
-    
+
     deleteButtons.forEach(deleteButton => {
         deleteButton.addEventListener('click', () => {
             clearActiveOperator();
             const oldResult = getResult();
-            setResult(oldResult.slice(0, oldResult.length-1));
+            setResult(oldResult.slice(0, oldResult.length - 1));
             isNumberClickedLast = true;
             setIsFinalResult(false);
         });
@@ -182,7 +183,7 @@ window.addEventListener('load', function() {
     });
 
     numberButtons.forEach(numberButton => {
-        numberButton.addEventListener('click', function(elem) {
+        numberButton.addEventListener('click', function (elem) {
             clearActiveOperator();
             numberClicked(+this.attributes.getNamedItem('value').value);
             setClearIosButtonText();
@@ -190,7 +191,7 @@ window.addEventListener('load', function() {
     });
 
     operationButtons.forEach(operationButton => {
-        operationButton.addEventListener('click', function() {
+        operationButton.addEventListener('click', function () {
             clearActiveOperator();
             this.parentElement.classList.add('active');
             const operator = this.attributes.getNamedItem('value').value;
@@ -226,7 +227,7 @@ window.addEventListener('load', function() {
         if (lastOperator) {
             switch (lastOperator) {
                 case '/':
-                    lastSum = +lastSum / (+oldResult);
+                    lastSum = (+lastSum) / (+oldResult);
                     break;
                 case '*':
                     lastSum = +lastSum * (+oldResult);
@@ -235,7 +236,7 @@ window.addEventListener('load', function() {
                     lastSum = +lastSum + (+oldResult);
                     break;
                 case '-':
-                    lastSum = +lastSum - (+oldResultt);
+                    lastSum = (+lastSum) - (+oldResult);
                     break;
             }
             setResult(lastSum);
@@ -253,7 +254,7 @@ window.addEventListener('load', function() {
         } else {
             results.forEach((result) => {
                 result.classList.remove('final');
-            }) 
+            })
         }
     };
 
@@ -312,6 +313,12 @@ window.addEventListener('load', function() {
 
     const setResult = (newVal) => {
         results.forEach((result) => {
+            if (result.classList.contains("result-ios")) {
+                if (newVal === '') {
+                    result.innerText = '0';
+                    return
+                }
+            }
             result.innerText = newVal;
         })
     }
@@ -337,19 +344,25 @@ window.addEventListener('load', function() {
     };
 
     const isPWAorFullscreen = () => {
-      return (window.matchMedia && (
-        window.matchMedia('(display-mode: standalone)').matches ||
-        window.matchMedia('(display-mode: fullscreen)').matches
-      )) || window.navigator.standalone;
+        return (window.matchMedia && (
+            window.matchMedia('(display-mode: standalone)').matches ||
+            window.matchMedia('(display-mode: fullscreen)').matches
+        )) || window.navigator.standalone;
     }
-    detectAndSetUiDevice();
- setTimeout(() => {
-            if (isPWAorFullscreen()) {
-                window.scrollTo(0, document.body.scrollHeight);
-                setTimeout(() => {
-                    document.body.classList.add('no-scroll');
-                    document.documentElement.classList.add('no-scroll');
-                }, 300);
-              }
+
+    const scrollToBottom = () => {
+        window.scrollTo(0, document.body.scrollHeight);
+        setTimeout(() => {
+            document.body.classList.add('no-scroll');
+            document.documentElement.classList.add('no-scroll');
         }, 300);
+    }
+
+    detectAndSetUiDevice();
+
+    setTimeout(() => {
+        if (isPWAorFullscreen()) {
+            scrollToBottom();
+        }
+    }, 300);
 });
