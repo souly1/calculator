@@ -366,6 +366,7 @@ window.addEventListener('load', function () {
     }
 
     const tryVibrate = () => {
+        const userAgent = navigator.userAgent;
         if (/android/i.test(userAgent)) {
             if (window.navigator && window.navigator.vibrate) {
                 navigator.vibrate(100);
