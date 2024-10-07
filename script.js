@@ -369,7 +369,7 @@ window.addEventListener('load', function () {
         const userAgent = navigator.userAgent;
         if (/android/i.test(userAgent)) {
             if (window.navigator && window.navigator.vibrate) {
-                navigator.vibrate(10);
+                navigator.vibrate(1);
             }
         }
     }
