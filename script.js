@@ -121,19 +121,18 @@ window.addEventListener('load', function () {
 
     equalsButtons.forEach(equalsButton => {
         equalsButton.addEventListener('click', () => {
-            tryVibrate();
             clearActiveOperator();
             equalsClickCount++;
             calculateLastOperation();
             isNumberClickedLast = false;
             checkForce();
             setIsFinalResult(true);
+            tryVibrate();
         });
     });
 
     plusMinusButtons.forEach(plusMinusButton => {
         plusMinusButton.addEventListener('click', () => {
-            tryVibrate();
             clearActiveOperator();
             const oldResult = getResult();
             setResult(oldResult * -1);
@@ -144,22 +143,22 @@ window.addEventListener('load', function () {
             if (numOfPlusMinusClicked === 5) {
                 handleRulerClick();
             }
+            tryVibrate();
         });
     });
 
     dotButtons.forEach(dotButton => {
         dotButton.addEventListener('click', () => {
-            tryVibrate();
             clearActiveOperator();
             setResult((+result.innerText).toString() + '.');
             isNumberClickedLast = true;
             setIsFinalResult(false);
+            tryVibrate();
         });
     });
 
     clearButtons.forEach(clearButton => {
         clearButton.addEventListener('click', () => {
-            tryVibrate();
             clearActiveOperator();
             numOfAdvancedClicked = 0;
             lastSum = 0;
@@ -168,12 +167,12 @@ window.addEventListener('load', function () {
             isNumberClickedLast = false;
             setIsFinalResult(false);
             setClearIosButtonText();
+            tryVibrate();
         });
     });
 
     percentButtons.forEach(percentButton => {
         percentButton.addEventListener('click', () => {
-            tryVibrate();
             clearActiveOperator();
             const oldResult = getResult();
             if (!!oldResult) {
@@ -184,6 +183,7 @@ window.addEventListener('load', function () {
                     handleAdvancedClicked();
                 }
             }
+            tryVibrate();
         });
     });
 
@@ -210,7 +210,6 @@ window.addEventListener('load', function () {
     }
 
     const numberClicked = (clickedValue) => {
-        tryVibrate();
         if (isNumberClickedLast) {
             const oldResult = getResult();
             setResult(+(oldResult.toString() + clickedValue.toString()));
@@ -219,14 +218,15 @@ window.addEventListener('load', function () {
         }
         isNumberClickedLast = true;
         setIsFinalResult(false);
+        tryVibrate();
     }
 
     const operatorClicked = (operator) => {
-        tryVibrate();
         calculateLastOperation();
         lastOperator = operator;
         isNumberClickedLast = false;
         setIsFinalResult(false);
+        tryVibrate();
     }
 
     const calculateLastOperation = () => {
@@ -369,7 +369,7 @@ window.addEventListener('load', function () {
         const userAgent = navigator.userAgent;
         if (/android/i.test(userAgent)) {
             if (window.navigator && window.navigator.vibrate) {
-                navigator.vibrate(100);
+                navigator.vibrate(10);
             }
         }
     }
