@@ -121,6 +121,7 @@ window.addEventListener('load', function () {
 
     equalsButtons.forEach(equalsButton => {
         equalsButton.addEventListener('click', () => {
+            tryVibrate();
             clearActiveOperator();
             equalsClickCount++;
             calculateLastOperation();
@@ -132,6 +133,7 @@ window.addEventListener('load', function () {
 
     plusMinusButtons.forEach(plusMinusButton => {
         plusMinusButton.addEventListener('click', () => {
+            tryVibrate();
             clearActiveOperator();
             const oldResult = getResult();
             setResult(oldResult * -1);
@@ -147,6 +149,7 @@ window.addEventListener('load', function () {
 
     dotButtons.forEach(dotButton => {
         dotButton.addEventListener('click', () => {
+            tryVibrate();
             clearActiveOperator();
             setResult((+result.innerText).toString() + '.');
             isNumberClickedLast = true;
@@ -156,6 +159,7 @@ window.addEventListener('load', function () {
 
     clearButtons.forEach(clearButton => {
         clearButton.addEventListener('click', () => {
+            tryVibrate();
             clearActiveOperator();
             numOfAdvancedClicked = 0;
             lastSum = 0;
@@ -169,6 +173,7 @@ window.addEventListener('load', function () {
 
     percentButtons.forEach(percentButton => {
         percentButton.addEventListener('click', () => {
+            tryVibrate();
             clearActiveOperator();
             const oldResult = getResult();
             if (!!oldResult) {
@@ -205,6 +210,7 @@ window.addEventListener('load', function () {
     }
 
     const numberClicked = (clickedValue) => {
+        tryVibrate();
         if (isNumberClickedLast) {
             const oldResult = getResult();
             setResult(+(oldResult.toString() + clickedValue.toString()));
@@ -216,6 +222,7 @@ window.addEventListener('load', function () {
     }
 
     const operatorClicked = (operator) => {
+        tryVibrate();
         calculateLastOperation();
         lastOperator = operator;
         isNumberClickedLast = false;
@@ -356,6 +363,14 @@ window.addEventListener('load', function () {
             document.body.classList.add('no-scroll');
             document.documentElement.classList.add('no-scroll');
         }, 300);
+    }
+
+    const tryVibrate = () => {
+        if (/android/i.test(userAgent)) {
+            if (window.navigator && window.navigator.vibrate) {
+                navigator.vibrate(100);
+            }
+        }
     }
 
     detectAndSetUiDevice();
