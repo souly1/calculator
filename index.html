@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="apple-touch-icon" href="180.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="icons/114.png">
+    <link rel="apple-touch-icon" sizes="1024x1024" href="icons/1024.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="icons/120.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/180.png">
+    <link rel="apple-touch-icon" sizes="29x29" href="icons/29.png">
+    <link rel="apple-touch-icon" sizes="40x40" href="icons/40.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="icons/57.png">
+    <link rel="apple-touch-icon" sizes="58x58" href="icons/58.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="icons/60.png">
+    <link rel="apple-touch-icon" sizes="80x80" href="icons/80.png">
+    <link rel="apple-touch-icon" sizes="87x87" href="icons/87.png">
+
+    <link rel="canonical" href="https://souly1.github.io/calculator/" />
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#000000">
+    <title>Calculator</title>
+    <!-- Link for PWA -->
+    <link rel="manifest" href="manifest.json">
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="head">
+        <button class="fullscreen-button" id="fullscreen-button">.</button>
+    </div>
+    <div class="calc-body-android" id="calc-body-android">
+        <div class="calculation-area">
+            <div class="calculation-row">
+                <div class="result" id="result"></div>
+                <span class="cursor"></span>
+            </div>
+        </div>
+        <div class="function-bar">
+            <div class="function-icon-container">
+                <div class="function-icon icon-history"></div>
+            </div>
+            <div class="function-icon-container">
+                <div class="function-icon icon-ruler" id="icon-ruler"></div>                
+            </div>
+            <div class="function-icon-container">
+                <div class="function-icon icon-advanced" id="icon-advanced"></div>
+            </div>
+            <div class="function-icon placeholder"></div>
+            <div class="function-icon placeholder"></div>
+            <div class="function-icon-container">
+                <div class="function-icon icon-delete" id="icon-delete"></div>
+            </div>
+        </div>
+        <div class="main-buttons">
+            <div class="button-row">
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="math-button button-clear" id="button-clear">C</div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="math-button button-brackets" id="button-brackets">( )</div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="math-button button-percent" id="button-percent">%</div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="math-button operation-button button-divide" value="/"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-container">
+                    <div class="button number-button" value="7">7</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button" value="8">8</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button" value="9">9</div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="math-button operation-button button-multiply" value="*"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-container">
+                    <div class="button number-button" value="4">4</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button" value="5">5</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button" value="6">6</div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="math-button operation-button button-subtract" value="-"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-container">
+                    <div class="button number-button" value="1">1</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button" value="2">2</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button" value="3">3</div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="math-button operation-button button-plus"  value="+"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-container">
+                    <div class="button">
+                        <div class="button-plus-minus" id="button-plus-minus"></div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button" value="0">0</div>
+                </div>
+                <div class="button-container">
+                    <div class="button button-dot" id="button-dot">.</div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container">
+                        <div class="button-equals" id="button-equals">=</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="calc-body-ios hidden" id="calc-body-ios">
+        <div class="calculation-area">
+            <div class="calculation-row">
+                <div class="result result-ios" id="result-ios">0</div>
+            </div>
+        </div>
+        <div class="main-buttons">
+            <div class="button-row button-row-ios">
+                <div class="button-container">
+                    <div class="button math-button-container math-button-container-ios">
+                        <div class="math-button button-clear math-button-ios" id="button-clear-ios">AC</div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container math-button-container-ios">
+                        <div class="button-plus-minus math-button-ios" id="button-plus-minus-ios"></div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container math-button-container-ios">
+                        <div class="math-button button-percent math-button-ios" id="button-percent-ios">%</div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container operation-button-container-ios">
+                        <div class="math-button button-divide operation-button operation-button-ios" value="/"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row button-row-ios">
+                <div class="button-container">
+                    <div class="button number-button number-button-ios" value="7">7</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button number-button-ios" value="8">8</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button number-button-ios" value="9">9</div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container operation-button-container-ios">
+                        <div class="math-button operation-button button-multiply operation-button-ios" value="*"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row button-row-ios">
+                <div class="button-container">
+                    <div class="button number-button number-button-ios" value="4">4</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button number-button-ios" value="5">5</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button number-button-ios" value="6">6</div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container operation-button-container-ios">
+                        <div class="math-button operation-button button-subtract operation-button-ios" value="-"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row button-row-ios">
+                <div class="button-container">
+                    <div class="button number-button number-button-ios" value="1">1</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button number-button-ios" value="2">2</div>
+                </div>
+                <div class="button-container">
+                    <div class="button number-button number-button-ios" value="3">3</div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container operation-button-container-ios">
+                        <div class="math-button operation-button button-plus operation-button-ios"  value="+"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row button-row-ios">
+                <div class="button-container">
+                    <div class="button number-button number-button-ios number-button-ios-zero" value="0">0</div>
+                </div>
+                <div class="button-container">
+                    <div class="button button-dot number-button-ios" id="button-dot-ios">.</div>
+                </div>
+                <div class="button-container">
+                    <div class="button math-button-container operation-button-container-ios">
+                        <div class="button-equals operation-button-ios" id="button-equals-ios">=</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="advanced-settings hidden" id="advanced-settings">
+        <h1>Advanced Settings</h1>
+        <div class="advanced-input-container">
+            <label for="iteration">Iterations:</label>
+            <input type="number" id="iteration" name="iteration" value="2"><br><br>
+        </div>
+        <div class="advanced-input-container">
+            <label for="value-1">Value 1:</label>
+            <input type="number" id="value-1" name="value-1"><br><br>
+        </div>
+        <div class="advanced-input-container">
+            <label for="value-2">Value 2:</label>
+            <input type="number" id="value-2" name="value-2"><br><br>
+        </div>
+        <div class="advanced-input-container">
+            <label for="value-3">Value 3:</label>
+            <input type="number" id="value-3" name="value-3"><br><br>
+        </div>
+
+        <div class="button-bar">
+            <button id="advanced-clear-button">clear</button>
+            <button id="advanced-save-button">save</button>
+            <button id="advanced-cancel-button">cancel</button>
+        </div>  
+    </div>
+
+    <!-- Link to the external JS file -->
+    <script src="script.js"></script>
+</body>
+</html>
