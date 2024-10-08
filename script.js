@@ -17,10 +17,9 @@ window.addEventListener('load', function () {
             window.addEventListener('scroll', function () {
                 if (window.scrollY > window.innerHeight / 2) {
                     window.removeEventListener('scroll', arguments.callee);
-                    this.setTimeout(() => {
-                        document.body.classList.add('no-scroll');
-                        document.documentElement.classList.add('no-scroll');
-                    }, 1000);
+                    if (isPWAorFullscreen()) {
+                        removeScroll();
+                    }
                 }
             });
         }, 10);
@@ -70,7 +69,9 @@ window.addEventListener('load', function () {
         }
 
         fullscreenButton.classList.toggle('hidden');
-        scrollToBottom();
+        setTimeout(() => {
+            scrollToBottom();
+        }, 500);
     }
 
     fullscreenButton.addEventListener('click', enterFullscreen);
@@ -373,6 +374,20 @@ window.addEventListener('load', function () {
             }
         }
     }
+
+    const removeScroll = () => {
+        this.setTimeout(() => {
+            document.body.classList.add('no-scroll');
+            document.documentElement.classList.add('no-scroll');
+        }, 1000);
+    }
+
+    window.addEventListener('beforeinstallprompt', (event) => {
+        // Prevent the default prompt from showing
+        event.preventDefault();
+        // Optionally, you can store the event for triggering later if needed
+        // window.deferredPrompt = event;
+    });
 
     detectAndSetUiDevice();
 
